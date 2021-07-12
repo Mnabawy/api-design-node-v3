@@ -12,4 +12,16 @@ app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
-export const start = () => {}
+app.get('/', (req, res) => {
+  res.send('hello world')
+})
+
+app.post('/', (req, res) => {
+  res.send({ mesg: req.body.msg })
+})
+
+export const start = () => {
+  app.listen(3000, () => {
+    console.log('app is listning on port 3000')
+  })
+}
