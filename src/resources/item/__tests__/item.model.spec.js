@@ -9,7 +9,7 @@ describe('Item model', () => {
         type: String,
         required: true,
         trim: true,
-        maxlength: 50
+        maxLength: 50
       })
     })
 
