@@ -24,11 +24,7 @@ export const getMany = model => async (req, res) => {
 export const createOne = model => async (req, res) => {
   const userId = getAuthUser(req)
 
-  const doc = await model.create({
-    name: 'name',
-    createdBy: userId,
-    list: mongoose.SchemaTypes.ObjectId()
-  })
+  const doc = await model.create({ ...req.body, createdBy: req.user._id })
   res.status(201).json({ data: doc })
 }
 
@@ -38,10 +34,8 @@ export const updateOne = model => async (req, res) => {
 
   const updatedDoc = await model.findOneAndUpdate(
     { _id: id, createdBy: userId },
-    { name: 'hello' },
-    {
-      new: true
-    }
+    req.body,
+    { new: true }
   )
 
   if (!updatedDoc) {
